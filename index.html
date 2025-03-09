@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px 0;
+        }
+        #login, #cart, #products {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none; /* Esconde as seções inicialmente */
+        }
+        h2 {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #57d9e2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #57d9e2;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        /* Estilos para o cabeçalho */
+        .header-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white; /* Fundo branco para o cabeçalho */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .logo-container img {
+            max-height: 90px; /* Tamanho menor para a logo */
+        }
+        .search-bar {
+            margin-left: 20px;
+            flex-grow: 1;
+        }
+        .search-bar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #57d9e2;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #2ab8ad;
+        }
+        .nav-buttons {
+            margin-left: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-buttons button {
+            margin: 0;
+        }
+        /* Estilos para a área de produtos com imagens */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-card {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .product-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        .product-card p {
+            color: #30D5C8;
+            font-weight: bold;
+        }
+        /* Estilos para o rodapé (barra verde) */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #57d9e2; /* Barra verde */
+            color: white;
+            margin-top: 0px;
+            display: flex; /* Alinha os links horizontalmente */
+            justify-content: center; /* Centraliza os links */
+            gap: 30px; /* Espaçamento entre os links */
+        }
+        footer a {
+            color: white; /* Cor do texto dos links */
+            text-decoration: none; /* Remove o sublinhado padrão dos links */
+        }
+        footer a:hover {
+            text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+        }
+
+        /* Ensure promo image takes full width */
+        .promo-image img {
+          width: 100%;
+          height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho com logo, campo de busca e botões -->
+    <div class="header-container">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Logo da Loja">
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Pesquisar produtos...">
+            <button>Buscar</button>
+        </div>
+        <div class="nav-buttons">
+            <button onclick="showSection('cart')">Carrinho</button>
+            <button onclick="showSection('login')">Login</button>
+            <button onclick="showSection('products')">Produtos</button>
+        </div>
+    </div>
+
+    <!-- Rodapé (barra verde) -->
+    <footer>
+        <a href="#">Faça seu orçamento</a>
+        <a href="#">Beleza e dermocosmeticos</a>
+        <a href="#">Imunidade</a>
+        <a href="#">Saúde</a>
+        <a href="#">Entre em contato</a>
+    </footer>
+
+    <!-- Login -->
+    <div id="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Carrinho -->
+    <div id="cart">
+        <h2>Carrinho</h2>
+        <ul id="cartList">
+            <li>Produto 1 - R$29,99</li>
+            <li>Produto 2 - R$39,99</li>
+        </ul>
+        <button id="checkout">Finalizar Compra</button>
+    </div>
+
+     <!-- Área de produtos -->
+    <div id="products">
+        <h2>Produtos</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="images/produto1.jpg" alt="Produto 1">
+                <h3>PREVÓLUM</h3>
+                <p>R$29,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+            <div class="product-card">
+                <img src="images/produto2.jpg" alt="Produto 2">
+                <h3>PREVÓLUM</h3>
+                <p>R$29,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+            <div class="product-card">
+                <img src="images/produto3.jpg" alt="Produto 3">
+                <h3>PREVÓLUM</h3>
+                <p>R$29,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+            <div class="product-card">
+                <img src="images/produto4.jpg" alt="Produto 4">
+                <h3>PREVÓLUM</h3>
+                <p>R$29,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área de promoção -->
+    <section class="promo">
+        <h1>PROMO DA SEMANA</h1>
+        <div class="promo-image">
+            <img src="images/promo.jpg" alt="Promoção da Semana">
+        </div>
+        <h2>MAIS VENDIDOS</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="images/produto1.jpg" alt="Produto 1">
+                <h3>enxaqueca</h3>
+                <p>R$39,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+            <div class="product-card">
+                <img src="images/produto2.jpg" alt="Produto 2">
+                <h3>tireiode</h3>
+                <p>R$49,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+            <div class="product-card">
+                <img src="images/produto3.jpg" alt="Produto 3">
+                <h3>cabelo e unhas</h3>
+                <p>R$29,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+            <div class="product-card">
+                <img src="images/produto4.jpg" alt="Produto 4">
+                <h3>imunidade</h3>
+                <p>R$29,99</p>
+                <button>Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Função para mostrar a seção selecionada e esconder as outras
+        function showSection(sectionId) {
+            // Esconde todas as seções
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('cart').style.display = 'none';
+            document.getElementById('products').style.display = 'none';
+
+            // Mostra a seção selecionada
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
